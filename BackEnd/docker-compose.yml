@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/phishguard?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=phishguard
+      - SPRING_DATASOURCE_PASSWORD=phishguard_pass
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+      - JWT_SECRET=PhishGuardSuperSecretKeyForJwtAuthenticationWhichNeedsToBeLongEnoughReplaceThisInProd
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - phishguard_network
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=phishguard
+      - MYSQL_USER=phishguard
+      - MYSQL_PASSWORD=phishguard_pass
+      - MYSQL_ROOT_PASSWORD=root_pass
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - phishguard_network
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - phishguard_network
+
+volumes:
+  mysql_data:
+  redis_data:
+
+networks:
+  phishguard_network:
+    driver: bridge

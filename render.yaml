@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: phishing-detection-backend
+    # Explicitly set the Root Directory to BackEnd since your repo has both FrontEnd and BackEnd folders
+    rootDir: BackEnd
+    env: java
+    buildCommand: mvn clean package -DskipTests
+    startCommand: java -jar target/*.jar
+    envVars:
+      # Changed MONGO_URI to SPRING_DATA_MONGODB_URI to perfectly match your application.yml!
+      - key: SPRING_DATA_MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: PORT
+        value: 8080

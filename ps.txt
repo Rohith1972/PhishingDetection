@@ -1,0 +1,5 @@
+phishingdetection-frontend-1 - 0.0.0.0:5173->5173/tcp, [::]:5173->5173/tcp
+phishingdetection-backend-1 - 0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
+phishingdetection-redis-1 - 0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp
+phishingdetection-mongodb-1 - 0.0.0.0:27017->27017/tcp, [::]:27017->27017/tcp
+phishingdetection-mysql-1 - 0.0.0.0:3307->3306/tcp, [::]:3307->3306/tcp

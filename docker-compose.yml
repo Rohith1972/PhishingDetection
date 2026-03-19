@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./FrontEnd
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_BASE_URL=https://phishingdetection-1.onrender.com/api
+    depends_on:
+      - backend
+    networks:
+      - phishguard_network
+
+  backend:
+    build: ./BackEnd
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+    volumes:
+      - ./BackEnd/ml_data:/app/ml_data
+    depends_on:
+
+      redis:
+        condition: service_started
+    networks:
+      - phishguard_network
+
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - phishguard_network
+
+volumes:
+
+  redis_data:
+
+networks:
+  phishguard_network:
+    driver: bridge
