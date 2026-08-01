@@ -4,7 +4,7 @@ spring:
   
   data:
     mongodb:
-      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/phishguard}
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb+srv://rohith:rohith@cluster0.zghfqyy.mongodb.net/phishguard?retryWrites=true&w=majority}
 
 
     redis:
@@ -18,16 +18,17 @@ spring:
 
 gemini:
   api:
-    key: ${GEMINI_API_KEY}
+    key: ${GEMINI_API_KEY:AIzaSyBHK4shgKz9DgZOiNGp2sj672iFXJtAQIs}
 
 safebrowsing:
   api:
-    key: ${SAFE_BROWSING_API_KEY}
+    key: ${SAFE_BROWSING_API_KEY:AIzaSyD7jFUo-7RJ3TYE7BAgiSLtA0lxz63RV0I}
 
 app:
   jwt:
-    secret: ${JWT_SECRET}
+    secret: ${JWT_SECRET:PhishGuardSuperSecretKeyForJwtAuthenticationWhichNeedsToBeLongEnoughReplaceThisInProd}
     expiration: 86400000 # 24 hours in ms
+
   
   security:
     cors:

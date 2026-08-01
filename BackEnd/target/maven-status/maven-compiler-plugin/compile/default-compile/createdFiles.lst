@@ -15,6 +15,7 @@ com\phishguard\security\JwtTokenProvider.class
 com\phishguard\dto\LoginRequest.class
 com\phishguard\dto\DashboardResponse$DashboardResponseBuilder.class
 com\phishguard\dto\ScanUrlRequest.class
+com\phishguard\config\MongoConfig.class
 com\phishguard\config\SecurityConfig.class
 com\phishguard\dto\MessageScanRequest.class
 com\phishguard\entity\ScanHistory.class
