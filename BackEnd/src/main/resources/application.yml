@@ -6,12 +6,12 @@ spring:
   
   data:
     mongodb:
-      uri: ${SPRING_DATA_MONGODB_URI:mongodb+srv://rohith:rohith@cluster0.zghfqyy.mongodb.net/phishguard?retryWrites=true&w=majority}
+      uri: ${SPRING_DATA_MONGODB_URI}
 
 
     redis:
-      host: ${SPRING_REDIS_HOST:localhost}
-      port: ${SPRING_REDIS_PORT:6379}
+      host: ${SPRING_REDIS_HOST}
+      port: ${SPRING_REDIS_PORT}
 
   servlet:
     multipart:
@@ -24,11 +24,11 @@ grok:
 
 safebrowsing:
   api:
-    key: ${SAFE_BROWSING_API_KEY:AIzaSyD7jFUo-7RJ3TYE7BAgiSLtA0lxz63RV0I}
+    key: ${SAFE_BROWSING_API_KEY}
 
 app:
   jwt:
-    secret: ${JWT_SECRET:PhishGuardSuperSecretKeyForJwtAuthenticationWhichNeedsToBeLongEnoughReplaceThisInProd}
+    secret: ${JWT_SECRET}
     expiration: 86400000 # 24 hours in ms
 
   
