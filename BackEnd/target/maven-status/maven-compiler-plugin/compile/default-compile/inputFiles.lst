@@ -1,11 +1,11 @@
 E:\Projects\PhishingDetection\BackEnd\src\main\java\com\phishguard\dto\LoginRequest.java
-E:\Projects\PhishingDetection\BackEnd\src\main\java\com\phishguard\service\GeminiService.java
 E:\Projects\PhishingDetection\BackEnd\src\main\java\com\phishguard\entity\RiskLevel.java
 E:\Projects\PhishingDetection\BackEnd\src\main\java\com\phishguard\service\ScanService.java
 E:\Projects\PhishingDetection\BackEnd\src\main\java\com\phishguard\security\JwtAuthenticationFilter.java
 E:\Projects\PhishingDetection\BackEnd\src\main\java\com\phishguard\dto\FileScanResponse.java
 E:\Projects\PhishingDetection\BackEnd\src\main\java\com\phishguard\entity\ScanType.java
 E:\Projects\PhishingDetection\BackEnd\src\main\java\com\phishguard\entity\User.java
+E:\Projects\PhishingDetection\BackEnd\src\main\java\com\phishguard\service\GrokService.java
 E:\Projects\PhishingDetection\BackEnd\src\main\java\com\phishguard\controller\ChatController.java
 E:\Projects\PhishingDetection\BackEnd\src\main\java\com\phishguard\security\JwtTokenProvider.java
 E:\Projects\PhishingDetection\BackEnd\src\main\java\com\phishguard\dto\ScanUrlRequest.java

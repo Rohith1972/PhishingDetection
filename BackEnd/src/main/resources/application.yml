@@ -1,6 +1,8 @@
 spring:
   application:
     name: PhishGuard-Backend
+  config:
+    import: optional:file:../.env[.properties]
   
   data:
     mongodb:
@@ -16,9 +18,9 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
 
-gemini:
+grok:
   api:
-    key: ${GEMINI_API_KEY:AIzaSyBHK4shgKz9DgZOiNGp2sj672iFXJtAQIs}
+    key: ${GROK_API_KEY:YOUR_API_KEY}
 
 safebrowsing:
   api:

@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 public class ChatService {
 
     @Autowired
-    private GeminiService geminiService;
+    private GrokService grokService;
 
     public ChatResponse processChat(ChatRequest request, String userId) {
         String prompt = "You are a cybersecurity expert assistant for an app called PhishGuard AI. " +
                         "A user is asking: \"" + request.getMessage() + "\"\n" +
                         "Provide a helpful, precise, and concise response focusing on cybersecurity best practices.";
         
-        String reply = geminiService.generateContent(prompt);
+        String reply = grokService.generateContent(prompt);
         return new ChatResponse(reply);
     }
 }

@@ -3,6 +3,7 @@ package com.phishguard.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -12,40 +13,40 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class GeminiService {
+public class GrokService {
 
-    @Value("${gemini.api.key:YOUR_API_KEY}")
+    @Value("${grok.api.key:YOUR_API_KEY}")
     private String apiKey;
 
     private final WebClient webClient;
     private final ObjectMapper objectMapper;
 
-    public GeminiService(WebClient.Builder webClientBuilder, ObjectMapper objectMapper) {
-        this.webClient = webClientBuilder.baseUrl("https://generativelanguage.googleapis.com").build();
+    public GrokService(WebClient.Builder webClientBuilder, ObjectMapper objectMapper) {
+        this.webClient = webClientBuilder.baseUrl("https://api.groq.com/openai/v1").build();
         this.objectMapper = objectMapper;
     }
 
     public String generateContent(String prompt) {
-        if (apiKey == null || apiKey.isEmpty() || apiKey.equals("YOUR_API_KEY")) {
-            return "Error: Gemini API key is not configured. Please add gemini.api.key to application.yml.";
+        if (apiKey == null || apiKey.isEmpty() || apiKey.equals("YOUR_API_KEY") || apiKey.equals("YOUR_GROK_API_KEY")) {
+            return "Error: Grok API key is not configured. Please add grok.api.key to application.yml or set GROK_API_KEY in .env";
         }
 
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("role", "user");
+        messageMap.put("content", prompt);
+
         Map<String, Object> requestBody = new HashMap<>();
-        Map<String, Object> partsMap = new HashMap<>();
-        partsMap.put("text", prompt);
+        requestBody.put("messages", List.of(messageMap));
 
-        Map<String, Object> contentMap = new HashMap<>();
-        contentMap.put("parts", List.of(partsMap));
-
-        requestBody.put("contents", List.of(contentMap));
-
-        String[] modelsToTry = {"gemini-2.5-flash", "gemini-2.0-flash"};
+        String[] modelsToTry = {"llama-3.3-70b-versatile", "llama-3.1-8b-instant"};
         Exception lastException = null;
 
         for (String model : modelsToTry) {
+            requestBody.put("model", model);
             try {
                 String responseStr = webClient.post()
-                        .uri("/v1beta/models/" + model + ":generateContent?key=" + apiKey)
+                        .uri("/chat/completions")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + apiKey)
                         .contentType(MediaType.APPLICATION_JSON)
                         .bodyValue(requestBody)
                         .retrieve()
@@ -53,7 +54,7 @@ public class GeminiService {
                         .block();
 
                 JsonNode rootNode = objectMapper.readTree(responseStr);
-                JsonNode textNode = rootNode.path("candidates").get(0).path("content").path("parts").get(0).path("text");
+                JsonNode textNode = rootNode.path("choices").get(0).path("message").path("content");
                 return textNode.asText();
             } catch (Exception e) {
                 lastException = e;
@@ -62,6 +63,6 @@ public class GeminiService {
             }
         }
         
-        return "Error generating content from Gemini API: " + (lastException != null ? lastException.getMessage() : "Unknown error");
+        return "Error generating content from Grok API: " + (lastException != null ? lastException.getMessage() : "Unknown error");
     }
 }

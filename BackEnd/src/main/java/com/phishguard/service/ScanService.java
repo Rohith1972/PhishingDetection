@@ -28,7 +28,7 @@ public class ScanService {
     private SafeBrowsingService safeBrowsingService;
 
     @Autowired
-    private GeminiService geminiService;
+    private GrokService grokService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -47,7 +47,7 @@ public class ScanService {
         
         ScanUrlResponse response;
         try {
-            String aiResult = geminiService.generateContent(prompt).replaceAll("```json|```", "").trim();
+            String aiResult = grokService.generateContent(prompt).replaceAll("```json|```", "").trim();
             JsonNode node = objectMapper.readTree(aiResult);
             List<String> flagsList = new ArrayList<>();
             if (node.has("flags") && node.get("flags").isArray()) {
@@ -109,7 +109,7 @@ public class ScanService {
                 String explanation = "Analyzed by Internal SVM Model.";
                 
                 try {
-                    String aiResult = geminiService.generateContent(prompt).replaceAll("```json|```", "").trim();
+                    String aiResult = grokService.generateContent(prompt).replaceAll("```json|```", "").trim();
                     JsonNode aiNode = objectMapper.readTree(aiResult);
                     if (aiNode.has("highlightedText") && aiNode.get("highlightedText").isArray()) {
                         aiNode.get("highlightedText").forEach(f -> highlights.add(f.asText()));
@@ -136,7 +136,7 @@ public class ScanService {
                     "Respond ONLY with a valid JSON strictly containing these keys: 'classification' ('SAFE' or 'PHISHING'), 'riskScore' (0-100 integer), 'highlightedText' (array of strings showing suspicious keywords from the text), and 'explanation' (string).";
             
             try {
-                String aiResult = geminiService.generateContent(prompt).replaceAll("```json|```", "").trim();
+                String aiResult = grokService.generateContent(prompt).replaceAll("```json|```", "").trim();
                 JsonNode node = objectMapper.readTree(aiResult);
                 List<String> highlights = new ArrayList<>();
                 if (node.has("highlightedText") && node.get("highlightedText").isArray()) {
@@ -290,7 +290,7 @@ public class ScanService {
                     "Respond ONLY with a valid JSON strictly containing these keys: 'malicious' (boolean), 'threatLevel' ('LOW', 'MEDIUM', 'HIGH'), 'details' (string).";
             
             try {
-                String aiResult = geminiService.generateContent(prompt).replaceAll("```json|```", "").trim();
+                String aiResult = grokService.generateContent(prompt).replaceAll("```json|```", "").trim();
                 JsonNode node = objectMapper.readTree(aiResult);
                 
                 response = FileScanResponse.builder()
@@ -353,7 +353,7 @@ public class ScanService {
                 "The results show " + malicious + " security vendors flagged it as malicious and " + suspicious + " flagged it as suspicious. " +
                 "Provide a brief, professional AI explanation (2-3 sentences max) of what this implies for the user's security. If it's safe (0 malicious/suspicious), explain why it's considered safe but remind them to still be cautious.";
         try {
-            return geminiService.generateContent(prompt).replaceAll("```json|```", "").trim();
+            return grokService.generateContent(prompt).replaceAll("```json|```", "").trim();
         } catch (Exception e) {
             if (malicious > 0 || suspicious > 0) {
                 return "VirusTotal flagged this file as malicious (" + malicious + " engines) / suspicious (" + suspicious + " engines).";

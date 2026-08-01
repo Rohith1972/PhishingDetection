@@ -22,10 +22,10 @@ com\phishguard\entity\ScanHistory.class
 com\phishguard\controller\HistoryController.class
 com\phishguard\repository\UserRepository.class
 com\phishguard\repository\ScanHistoryRepository.class
-com\phishguard\service\GeminiService.class
 com\phishguard\service\AuthService.class
 com\phishguard\controller\ScanController.class
 com\phishguard\dto\FileScanResponse$FileScanResponseBuilder.class
+com\phishguard\service\GrokService.class
 com\phishguard\service\ScanService$1.class
 com\phishguard\entity\ScanHistory$ScanHistoryBuilder.class
 com\phishguard\dto\ChatRequest.class

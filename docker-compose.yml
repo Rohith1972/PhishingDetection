@@ -6,7 +6,7 @@ services:
     ports:
       - "5173:5173"
     environment:
-      - VITE_API_BASE_URL=https://phishingdetection-1.onrender.com/api
+      - VITE_API_BASE_URL=http://localhost:8080/api
     depends_on:
       - backend
     networks:
