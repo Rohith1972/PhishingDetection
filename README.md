@@ -3,7 +3,8 @@
 An enterprise-grade **AI-Powered Phishing Detection and Cyber Threat Intelligence System** built using a modern decoupled micro-architecture. The platform combines **Spring Boot 3, Java 21, xAI Grok LLM, Scikit-Learn SVM Classifier, Google Safe Browsing API, React 19, MongoDB, and Redis** to deliver real-time multi-vector threat scanning (URLs, emails, and file attachments), automated risk scoring (0-100), interactive AI security chat, and threat analytics dashboards.
 
 > 👥 **Team Project** | 🤖 **AI & ML Threat Intelligence** | 🌐 **Full-Stack Web Development** | ⚡ **Multi-Vector Security Scanner**  
-> 🔗 **GitHub Repository:** [https://github.com/Rohith1972/PhishingDetection](https://github.com/Rohith1972/PhishingDetection) | 🌐 **Live Demo:** [https://phishing-detection-lilac.vercel.app/](https://phishing-detection-lilac.vercel.app/)
+> 🌐 **Live Demo:** [https://phishing-detection-lilac.vercel.app/](https://phishing-detection-lilac.vercel.app/)  
+> 🔗 **GitHub Repository:** [https://github.com/Rohith1972/PhishingDetection](https://github.com/Rohith1972/PhishingDetection)
 
 ---
 
