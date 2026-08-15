@@ -39,9 +39,12 @@ pnpm-debug.log*
 # Mac
 .DS_Store
 
-# Logs
+# Logs & Debug Dumps
 logs/
 *.log
+backend_logs*.txt
+ps.txt
 
 # Docker
 docker-compose.override.yml
+
